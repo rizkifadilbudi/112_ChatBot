@@ -63,7 +63,59 @@ app.post("/api/chat", async (req, res) => {
 
         let buffer = "";
 
-        
+        while (true) {
+            const {done, value} = await reader.read();
+
+            if(done) {
+                break;
+            }
+
+            buffer += decoder(value, {
+                stream: true
+            })
+
+            const lines = buffer.split("\n");
+
+            //simpan bagian terakhir karena mungkin belum lengkap
+            buffer = lines.pop();
+
+            for(const line of lines) {
+                const trimmedLine = line.trim();
+
+                if (!trimmedLine) {
+                    continue;
+                }
+
+                if (!trimmedLine.startsWith("data:")) {
+                    continue;
+                }
+
+                const data = trimmedLine.slice(5).trim();
+
+                if(data === "[DONE]") {
+                    continue;
+                }
+
+                try {
+                    const json = JSON.parse(data)
+
+                    const content = json.choices?.[0].delta?.content;
+
+                    if (content) {
+                        res.write(`data: ${JSON.stringify(content)}\n\n`);
+                    }
+                }
+                catch(err){
+                    console.error(
+                        "gagal parsing streaming data",
+                        err
+                    )
+                }
+            }
+        }
+
+        res.write("data: [DONE]\n\n");
+        res.end();
     }
     catch(err){}
 })
