@@ -13,3 +13,6 @@ app.get("/", (req, res) => {
     res.redirect("/index.html");
 })
 
+app.post("/api/chat", async (req, res) => {
+    
+})
