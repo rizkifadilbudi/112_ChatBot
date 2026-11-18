@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Nusa AI Chat</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <h1>💬 Nusa AI</h1>
+      <p>Asisten Chat Sederhana</p>
+    </header>
+
+    <div class="chat-box" id="chatBox">
+      <div class="welcome-msg">
+        <p>👋 Halo! Saya <strong>Nusa AI</strong>. Silakan ketik pesan untuk memulai percakapan.</p>
+      </div>
+    </div>
+
+    <form class="input-area" id="chatForm">
+      <input
+        type="text"
+        id="msgInput"
+        placeholder="Ketik pesan..."
+        autocomplete="off"
+        required
+      />
+      <button type="submit" id="sendBtn">Kirim</button>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

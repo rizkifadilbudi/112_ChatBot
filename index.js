@@ -34,7 +34,7 @@ app.post("/api/chat", async (req, res) => {
                 },
 
                 body: JSON.stringify({
-                    model: "nvidia/nemotron-3.5-super-v1:free",
+                    model: "openrouter/free",
                     messages: messages,
                     temperature: 0.7,
                     max_tokens: 1000,
@@ -70,7 +70,7 @@ app.post("/api/chat", async (req, res) => {
                 break;
             }
 
-            buffer += decoder(value, {
+            buffer += decoder.decode(value, {
                 stream: true
             })
 
